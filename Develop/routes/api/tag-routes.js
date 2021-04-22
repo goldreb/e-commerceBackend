@@ -11,9 +11,9 @@ Tag.findAll({
     through: ProductTag,
   },
 ],
-}).then(results => {
-  res.json(results);
-});
+}).then((allTags) => {
+  res.json(allTags);
+}).catch((err) => res.json(err));
 
 
 });
@@ -29,9 +29,9 @@ Tag.findAll({
     through: ProductTag,
   },
 ],
-}).then(results => {
-  res.json(results);
-});
+}).then((tagById) => {
+  res.json(tagById);
+}).catch((err) => res.json(err));
 
  
 });
@@ -41,9 +41,9 @@ router.post('/', (req, res) => {
   Tag.create({
     id: req.body.id,
     tag_name: req.body.tag_name, 
-  }).then(results => {
-    res.json(results);
-  });
+  }).then((newTag) => {
+    res.json(newTag);
+  }).catch((err) => res.json(err));
 });
 
 router.put('/:id', (req, res) => {
@@ -57,9 +57,9 @@ Tag.update({
     id: req.params.id,
   },
 
-}).then(results => {
-  res.json(results);
-})
+}).then((updateTags)=> {
+  res.json(updateTags);
+}).catch((err) => res.json(err));
 
 });
 
@@ -69,9 +69,9 @@ router.delete('/:id', (req, res) => {
     where: {
       id: req.params.id,
     },
-  }).then(results => {
-    res.json(results);
-  });
+  }).then((delTags)=> {
+    res.json(delTags);
+  }).catch((err) => res.json(err));
 });
 
 module.exports = router;

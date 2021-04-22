@@ -12,16 +12,16 @@ router.get('/', (req, res) => {
       model: Tag,
       through: ProductTag,
     },],
-  }).then(results => {
-    res.json(results);
-  });
+  }).then((products) => {
+    res.json(products);
+  }).catch((err) => res.json(err));
 
 });
 
 // get one product
 router.get('/:id', (req, res) => {
   // find a single product by its `id`
-  Product.findAll({
+  Product.findOne({
     where: {
       id: req.params.id,
     }, include: [Category,   // be sure to include its associated Category and Tag data
@@ -29,11 +29,9 @@ router.get('/:id', (req, res) => {
         model: Tag,
         through: ProductTag,
       },],
-  }).then(results => {
-    res.json(results);
-  });
-
-
+  }).then((productById) => {
+    res.json(productById);
+  }).catch((err) => res.json(err));
 
 });
 
@@ -117,9 +115,9 @@ router.delete('/:id', (req, res) => {
     where: {
       id: req.params.id,
     },
-  }).then(results => {
-    res.json(results);
-  });
+  }).then((delProduct) => {
+    res.json(delProduct);
+  }).catch((err) => res.json(err));
 });
 
 module.exports = router;

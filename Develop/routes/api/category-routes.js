@@ -10,9 +10,9 @@ router.get('/', (req, res) => {
      // be sure to include its associated Products
     include: [Product],
 
-  }).then(results => {
-    res.json(results);
-  })
+  }).then((categories) => {
+    res.json(categories);
+  }).catch((err) => res.json(err));
 });
 
 router.get('/:id', (req, res) => {
@@ -23,20 +23,17 @@ Category.findAll({
   }, 
 // be sure to include its associated Products
   include: [Product],
-}).then(results => {
-  res.json(results);
-});
+}).then((categoryById) => {
+  res.json(categoryById);
+}).catch((err) => res.json(err));
 });
 
 router.post('/', (req, res) => {
   // create a new category
-Category.create({
-  id: req.body.id,
-  category_name: req.body.category_name,
-}).then(results => {
-  res.json(results);
-})
-
+  Category.create(req.body)
+   .then((newCategory) => {
+     res.json(newCategory);
+   }).catch((err) => res.json(err));
 });
 
 router.put('/:id', (req, res) => {
@@ -50,9 +47,9 @@ router.put('/:id', (req, res) => {
     },
 
   }
-  ).then(results => {
-    res.json(results);
-  })
+  ).then((updateCategory) => {
+    res.json(updateCategory);
+  }).catch((err) => res.json(err));
 });
 
 router.delete('/:id', (req, res) => {
@@ -61,9 +58,9 @@ router.delete('/:id', (req, res) => {
     where: {
       id: req.params.id,
     },
-  }).then(results => {
-    res.json(results);
-  })
+  }).then((delCategory)=> {
+    res.json(delCategory);
+  }).catch((err) => res.json(err));
 });
 
 module.exports = router;

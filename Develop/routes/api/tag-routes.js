@@ -3,7 +3,7 @@ const { Tag, Product, ProductTag } = require('../../models');
 
 // The `/api/tags` endpoint
 
-router.get('/', (req, res) => {
+router.get('/', (_req, res) => {
   // find all tags
 Tag.findAll({
   include: [{   // be sure to include its associated Product data
@@ -11,9 +11,9 @@ Tag.findAll({
     through: ProductTag,
   },
 ],
-}).then((allTags) => {
-  res.json(allTags);
-}).catch((err) => res.json(err));
+}).then((results) => {
+  res.json(results);
+});
 
 
 });
@@ -29,10 +29,9 @@ Tag.findAll({
     through: ProductTag,
   },
 ],
-}).then((tagById) => {
-  res.json(tagById);
-}).catch((err) => res.json(err));
-
+}).then((results) => {
+  res.json(results);
+});
  
 });
 
@@ -41,9 +40,9 @@ router.post('/', (req, res) => {
   Tag.create({
     id: req.body.id,
     tag_name: req.body.tag_name, 
-  }).then((newTag) => {
-    res.json(newTag);
-  }).catch((err) => res.json(err));
+  }).then((results) => {
+    res.json(results);
+  });
 });
 
 router.put('/:id', (req, res) => {
@@ -57,9 +56,9 @@ Tag.update({
     id: req.params.id,
   },
 
-}).then((updateTags)=> {
-  res.json(updateTags);
-}).catch((err) => res.json(err));
+}).then((results)=> {
+  res.json(results);
+});
 
 });
 
@@ -69,9 +68,9 @@ router.delete('/:id', (req, res) => {
     where: {
       id: req.params.id,
     },
-  }).then((delTags)=> {
-    res.json(delTags);
-  }).catch((err) => res.json(err));
+  }).then((results)=> {
+    res.json(results);
+  });
 });
 
 module.exports = router;
